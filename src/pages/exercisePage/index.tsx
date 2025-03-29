@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { GestureRecognizer, FilesetResolver, DrawingUtils } from "@mediapipe/tasks-vision";
 import { signLanguages } from "../catalog/dummyData";
+import { Button } from "@/components/ui/button";
 
 type GestureResult = {
   gestures: Array<Array<{ categoryName: string; score: number }>>;
@@ -18,13 +19,35 @@ const ExercisePage = () => {
   const animationFrameRef = useRef<number>();
   const currentLetterIndexRef = useRef(0); // Use ref for current letter index
 
+
+
   // Exercise setup
   const exercise = signLanguages
     .find((item) => item.name === lang)
     ?.exercises.find((item) => item.id === Number(ex));
 
-  const word = exercise?.word.toUpperCase() || "";
+    const [word , setWord] = useState(getRandomWord())
+
+
+      
+
+//   const word = exercise?.word[getRandomIndex()].toUpperCase() || "";
   const [correctLetters, setCorrectLetters] = useState(new Array(word.length).fill(false));
+
+
+  const wordRef = useRef(word);
+  const correctLettersRef = useRef(correctLetters);
+  
+  useEffect(() => {
+    wordRef.current = word;
+    correctLettersRef.current = correctLetters;
+  }, [word, correctLetters]);
+
+  function getRandomWord(): string {
+    const number = exercise?.word.length || 0;
+    return exercise?.word[Math.floor(Math.random() * number)].toUpperCase() || "";
+  }
+
 
   useEffect(() => {
     const initializeRecognizer = async () => {
@@ -55,21 +78,49 @@ const ExercisePage = () => {
     };
   }, []);
 
+
+
+  const handleNewWord = () => {
+    // Stop webcam and reset state properly
+    if (webcamRunning) {
+      toggleWebcam(); // Stop first
+      setTimeout(() => { // Restart after cleanup
+        const newWord = getRandomWord();
+        setWord(newWord);
+        setCorrectLetters(new Array(newWord.length).fill(false));
+        currentLetterIndexRef.current = 0;
+        toggleWebcam(); // Restart with new word
+      }, 100);
+    } else {
+      const newWord = getRandomWord();
+      setWord(newWord);
+      setCorrectLetters(new Array(newWord.length).fill(false));
+      currentLetterIndexRef.current = 0;
+    }
+  };
+
   const handleSignDetection = (detectedLetter: string) => {
     setCorrectLetters(prev => {
-      // If already completed, return previous state
-      if (currentLetterIndexRef.current === -1) return prev;
+      const currentWord = wordRef.current;
+      const currentIndex = currentLetterIndexRef.current;
       
-      const expectedLetter = word[currentLetterIndexRef.current];
+      if (currentIndex === -1 || currentIndex >= currentWord.length) return prev;
+      
+      const expectedLetter = currentWord[currentIndex];
       if (detectedLetter === expectedLetter) {
         const newLetters = [...prev];
-        newLetters[currentLetterIndexRef.current] = true;
-        currentLetterIndexRef.current = newLetters.indexOf(false);
+        newLetters[currentIndex] = true;
+        
+        // Find next index immediately
+        const nextIndex = newLetters.findIndex(v => !v);
+        currentLetterIndexRef.current = nextIndex;
+        
         return newLetters;
       }
       return prev;
     });
   };
+
 
   const predictWebcam = async () => {
     if (!videoRef.current || !canvasRef.current || !recognizer) return;
@@ -176,9 +227,16 @@ const ExercisePage = () => {
       </div>
 
       {/* Progress indicator */}
-      <div className="text-lg text-gray-600">
+      <div className="text-lg text-center max-w-2xl w-full text-gray-600">
         {currentLetterIndex === -1 ? (
-          "Completed! 🎉"
+            
+            <div className="flex w-full justify-between items-center">
+          
+          <Button onClick={handleNewWord}>New Word</Button>
+          <span className="text-3xl font-bold">"Completed! 🎉"</span>
+          <Button>next level</Button>
+          </div>
+          
         ) : (
           `Sign the ${ordinal(currentLetterIndex + 1)} letter: ${word[currentLetterIndex]}`
         )}
@@ -186,14 +244,14 @@ const ExercisePage = () => {
 
       {/* Webcam section */}
       <div className="flex flex-col items-center gap-4">
-        <button
+        <Button
           onClick={toggleWebcam}
           className={`px-6 py-3 rounded-lg text-white ${
-            webcamRunning ? "bg-red-500 hover:bg-red-600" : "bg-blue-500 hover:bg-blue-600"
+            webcamRunning ? "bg-red-500 hover:bg-red-600" : ""
           } transition-colors`}
         >
           {webcamRunning ? "Stop Webcam" : "Start Webcam"}
-        </button>
+        </Button>
 
         <div className="relative w-[640px] h-[480px] border-2 border-gray-200 rounded-lg overflow-hidden">
           <video
