@@ -9,11 +9,39 @@
 
 }
 
+::-webkit-scrollbar {
+ width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: var( --color-main-color); /* Scrollbar color */
+  border-radius: 4px; /* Rounded edges */
+}
+
+/* 
+html {
+  overflow-y: scroll;
+} */
+
+/* html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+} */
+
 html{
           background-color: var(--color-background-color);
     }
 
     @layer base {
+
+
+
       * {
       box-sizing: border-box;
       margin: 0;
