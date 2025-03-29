@@ -6,7 +6,6 @@
   --color-background-color: oklch(0.93 0.034 272.788);
   --color-main-color: oklch(0.585 0.233 277.117);
   --color-main-hover: oklch(0.87 0.065 274.039) ;
-
 }
 
 ::-webkit-scrollbar {

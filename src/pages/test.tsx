@@ -8,45 +8,29 @@ type GestureResult = {
 };
 
 export default function HandGestureRecognizer() {
-  const [imageRecognizer, setImageRecognizer] = useState<GestureRecognizer>();
   const [videoRecognizer, setVideoRecognizer] = useState<GestureRecognizer>();
   const [webcamRunning, setWebcamRunning] = useState(false);
-  const [imageResults, setImageResults] = useState<{ [key: string]: GestureResult }>({});
   const [videoResults, setVideoResults] = useState<GestureResult | null>(null);
   const [loading, setLoading] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const intervalRef = useRef<number>();
 
-  const images = [
-    { id: '1', url: 'https://assets.codepen.io/9177687/idea-gcbe74dc69_1920.jpg' },
-    { id: '2', url: 'https://assets.codepen.io/9177687/thumbs-up-ga409ddbd6_1.png' }
-  ];
-
   useEffect(() => {
-    const initializeRecognizers = async () => {
+    const initializeRecognizer = async () => {
       try {
         const vision = await FilesetResolver.forVisionTasks(
           "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
         );
 
-        const imgRecognizer = await GestureRecognizer.createFromOptions(vision, {
-          baseOptions: {
-            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task",
-            delegate: "GPU"
-          },
-          runningMode: "IMAGE"
-        });
-
         const vidRecognizer = await GestureRecognizer.createFromOptions(vision, {
           baseOptions: {
-            modelAssetPath: "https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task",
+            modelAssetPath: "./sign_language_recognizer_25-04-2023.task",
             delegate: "GPU"
           },
           runningMode: "VIDEO"
         });
 
-        setImageRecognizer(imgRecognizer);
         setVideoRecognizer(vidRecognizer);
         setLoading(false);
       } catch (error) {
@@ -55,7 +39,7 @@ export default function HandGestureRecognizer() {
       }
     };
 
-    initializeRecognizers();
+    initializeRecognizer();
 
     return () => {
       if (intervalRef.current) {
@@ -66,26 +50,6 @@ export default function HandGestureRecognizer() {
       }
     };
   }, []);
-
-  const handleImageClick = async (imageId: string, imageUrl: string) => {
-    if (!imageRecognizer) return;
-
-    try {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = imageUrl;
-      
-      img.onload = async () => {
-        const results = imageRecognizer.recognize(img);
-        setImageResults(prev => ({
-          ...prev,
-          [imageId]: results as GestureResult
-        }));
-      };
-    } catch (error) {
-      console.error('Image recognition error:', error);
-    }
-  };
 
   const toggleWebcam = async () => {
     if (!videoRecognizer) return;
@@ -105,7 +69,7 @@ export default function HandGestureRecognizer() {
           videoRef.current.srcObject = stream;
           videoRef.current.onloadeddata = () => {
             setWebcamRunning(true);
-            intervalRef.current = window.setInterval(predictWebcam, 3000);
+            intervalRef.current = window.setInterval(predictWebcam, 1000); // Changed to 1 second
           };
         }
       }
@@ -132,7 +96,6 @@ export default function HandGestureRecognizer() {
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
 
-      // Draw without flipping
       const drawingUtils = new DrawingUtils(canvasCtx);
       if (results.landmarks) {
         for (const landmarks of results.landmarks) {
@@ -154,7 +117,7 @@ export default function HandGestureRecognizer() {
   };
 
   if (loading) {
-    return <div style={{ padding: '20px', textAlign: 'center' }}>Loading models...</div>;
+    return <div style={{ padding: '20px', textAlign: 'center' }}>Loading model...</div>;
   }
 
   return (
@@ -173,79 +136,7 @@ export default function HandGestureRecognizer() {
         Hand Gesture Recognition
       </h1>
 
-      <section style={{ marginBottom: '40px' }}>
-        <h2 style={{ 
-          color: '#333', 
-          marginBottom: '20px',
-          fontSize: '1.8rem'
-        }}>
-          Static Image Recognition
-        </h2>
-        <div style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '20px',
-          justifyContent: 'center'
-        }}>
-          {images.map((img) => (
-            <div
-              key={img.id}
-              style={{
-                position: 'relative',
-                cursor: 'pointer',
-                borderRadius: '8px',
-                overflow: 'hidden',
-                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                transition: 'transform 0.2s',
-                aspectRatio: '1'
-              }}
-              onClick={() => handleImageClick(img.id, img.url)}
-            >
-              <img
-                src={img.url}
-                style={{ 
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  display: 'block'
-                }}
-                alt={`Gesture example ${img.id}`}
-              />
-              {imageResults[img.id]?.gestures?.length > 0 && (
-                <div style={{
-                  position: 'absolute',
-                  bottom: '0',
-                  left: '0',
-                  right: '0',
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                  color: 'white',
-                  padding: '12px',
-                  backdropFilter: 'blur(4px)'
-                }}>
-                  <p style={{ margin: '4px 0', fontSize: '14px' }}>
-                    Gesture: {imageResults[img.id].gestures[0][0].categoryName}
-                  </p>
-                  <p style={{ margin: '4px 0', fontSize: '14px' }}>
-                    Confidence: {(imageResults[img.id].gestures[0][0].score * 100).toFixed(1)}%
-                  </p>
-                  <p style={{ margin: '4px 0', fontSize: '14px' }}>
-                    Hand: {imageResults[img.id].handednesses[0][0].displayName}
-                  </p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section>
-        <h2 style={{ 
-          color: '#333', 
-          marginBottom: '20px',
-          fontSize: '1.8rem'
-        }}>
-          Live Webcam (3-Second Checks)
-        </h2>
         <div style={{ 
           position: 'relative',
           backgroundColor: '#f8f9fa',

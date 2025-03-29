@@ -5,6 +5,7 @@ import LanguageCatalog from "./pages/catalog"
 import LangyageExercises from "./pages/languagePage"
 import ExercisePage from "./pages/exercisePage"
 import HandGestureRecognizer from "./pages/test"
+
 import AboutUs from "./pages/aboutUsPage"
 
 
