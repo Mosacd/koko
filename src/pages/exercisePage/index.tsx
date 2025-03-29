@@ -16,6 +16,7 @@ const ExercisePage = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
+  const currentLetterIndexRef = useRef(0); // Use ref for current letter index
 
   // Exercise setup
   const exercise = signLanguages
@@ -24,7 +25,6 @@ const ExercisePage = () => {
 
   const word = exercise?.word.toUpperCase() || "";
   const [correctLetters, setCorrectLetters] = useState(new Array(word.length).fill(false));
-  const currentLetterIndex = correctLetters.indexOf(false);
 
   useEffect(() => {
     const initializeRecognizer = async () => {
@@ -56,16 +56,19 @@ const ExercisePage = () => {
   }, []);
 
   const handleSignDetection = (detectedLetter: string) => {
-    if (currentLetterIndex === -1) return; // All letters completed
-    
-    const expectedLetter = word[currentLetterIndex].toUpperCase();
-    if (detectedLetter === expectedLetter) {
-      setCorrectLetters(prev => {
+    setCorrectLetters(prev => {
+      // If already completed, return previous state
+      if (currentLetterIndexRef.current === -1) return prev;
+      
+      const expectedLetter = word[currentLetterIndexRef.current];
+      if (detectedLetter === expectedLetter) {
         const newLetters = [...prev];
-        newLetters[currentLetterIndex] = true;
+        newLetters[currentLetterIndexRef.current] = true;
+        currentLetterIndexRef.current = newLetters.indexOf(false);
         return newLetters;
-      });
-    }
+      }
+      return prev;
+    });
   };
 
   const predictWebcam = async () => {
@@ -80,6 +83,8 @@ const ExercisePage = () => {
       // Update canvas drawing
       canvasCtx.save();
       canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+      
+      // Flip the canvas context instead of the video element
       canvasCtx.translate(canvasRef.current.width, 0);
       canvasCtx.scale(-1, 1);
 
@@ -135,6 +140,7 @@ const ExercisePage = () => {
             canvasRef.current!.width = videoRef.current!.videoWidth;
             canvasRef.current!.height = videoRef.current!.videoHeight;
             setWebcamRunning(true);
+            currentLetterIndexRef.current = 0; // Reset index when starting
             predictWebcam();
           };
         }
@@ -144,6 +150,8 @@ const ExercisePage = () => {
       setWebcamRunning(false);
     }
   };
+
+  const currentLetterIndex = correctLetters.indexOf(false);
 
   return (
     <div className="full max-w-6xl items-center m-auto flex flex-col gap-10">
@@ -193,6 +201,7 @@ const ExercisePage = () => {
             autoPlay
             playsInline
             className="w-full h-full object-cover"
+            style={{ transform: 'scaleX(-1)' }} // Mirror the video feed
           />
           <canvas
             ref={canvasRef}
