@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <title>Hand Gesture Recognition</title>
+    <!-- Preload model file -->
+<link rel="preload" href="/sign_language_recognizer_25-04-2023.task" as="fetch" crossorigin="anonymous">
+
+<!-- Preload WASM assets -->
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm/task_vision_wasm_internal.js" as="script">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm/task_vision_wasm_internal.wasm" as="fetch" crossorigin="anonymous">
   </head>
   <body>
     <div id="root"></div>

@@ -16,6 +16,7 @@ const ExercisePage = () => {
     const animationFrameRef = useRef<number>(0);
     const currentLetterIndexRef = useRef<number>(0); // Use ref for current letter index
     const [hintShown, setHintShown] = useState<boolean>(false);
+    const [recognizerLoading, setRecognizerLoading] = useState(true);
 
     // Exercise setup
     const exercise = signLanguages
@@ -43,8 +44,10 @@ const ExercisePage = () => {
     }
 
 
-    useEffect(() => {
-        const initializeRecognizer = async () => {
+    // Update useEffect for recognizer initialization
+useEffect(() => {
+    const initializeRecognizer = async () => {
+        try {
             const vision = await FilesetResolver.forVisionTasks(
                 "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
             );
@@ -58,9 +61,15 @@ const ExercisePage = () => {
             });
 
             setRecognizer(recognizer);
-        };
+        } catch (error) {
+            console.error("Recognizer initialization failed:", error);
+        } finally {
+            setRecognizerLoading(false);
+        }
+    };
 
-        initializeRecognizer();
+    // Start loading immediately when component mounts
+    initializeRecognizer();
 
         return () => {
             if (animationFrameRef.current) {
@@ -249,14 +258,16 @@ const ExercisePage = () => {
 
             {/* Webcam section */}
             <div className="flex flex-col items-center gap-4">
-                <Button
-                    onClick={toggleWebcam}
-                    className={`px-6 py-3 rounded-lg text-white ${
-                        webcamRunning ? "bg-red-500 hover:bg-red-600" : ""
-                    } transition-colors`}
-                >
-                    {webcamRunning ? "Stop Webcam" : "Start Webcam"}
-                </Button>
+            <Button
+    onClick={toggleWebcam}
+    className={`px-6 py-3 rounded-lg text-white ${
+        webcamRunning ? "bg-red-500 hover:bg-red-600" : ""
+    } transition-colors`}
+    disabled={recognizerLoading || weBcamLoading}
+>
+    {recognizerLoading ? "Loading Resources..." : 
+     webcamRunning ? "Stop Webcam" : "Start Webcam"}
+</Button>
                     {weBcamLoading &&  <span className="text-xl">Loading...</span> }
                 <div
                     className={`relative w-[640px] h-[480px] rounded-lg overflow-hidden ${webcamRunning ? 'visible' : 'hidden'} `}>
