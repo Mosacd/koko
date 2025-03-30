@@ -47,7 +47,7 @@ We want Koko to be **free, fun, and accessible** to everyone — no matter their
 ![Homepage Screenshot](./screenshots/homepage.png)
 
 > ✋ Live Gesture Recognition  
-![Live Sign Practice](./screenshots/gesture-demo.png)
+![Live Sign Practice](./screenshots/gesture-demo.jpg)
 
 > 🧠 Quiz & Feedback  
 ![Quiz Mode](./screenshots/quiz.png)
@@ -101,6 +101,6 @@ This project is open source and licensed under the MIT License. See the `LICENSE
 
 - 🔗 Live App: [https://kokolang.site](https://kokolang.site)
 - 🧠 Repo: [https://git.kokolang.site/BoysNight/KoKo](https://git.kokolang.site/BoysNight/KoKo)
-- ✉️ Email: lasha@kamadadze.com
+- ✉️ Email: contact@kokolang.site
 
 ---
