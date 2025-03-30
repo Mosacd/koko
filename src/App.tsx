@@ -4,7 +4,7 @@ import HomePage from "./pages/homePage"
 import LanguageCatalog from "./pages/catalog"
 import LanguageExercises from "./pages/languagePage"
 import ExercisePage1 from "./pages/exercisePage1"
-import HandGestureRecognizer from "./pages/test"
+
 
 import AboutUs from "./pages/aboutUsPage"
 import ExercisePage2 from "./pages/exercisePage2"
@@ -23,7 +23,6 @@ function App() {
     <Route path='/catalog/:lang' element= {<LanguageExercises/>} />
     <Route path='/catalog/:lang/level1/:ex' element= {<ExercisePage1/>} />
     <Route path='/catalog/:lang/level2/:ex' element= {<ExercisePage2/>} />
-    <Route path="/whatever" element={<HandGestureRecognizer/>}/>
     <Route path="/aboutUs" element={<AboutUs/>}/>
     
    </Route>

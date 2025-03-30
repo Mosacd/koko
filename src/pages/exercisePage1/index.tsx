@@ -5,11 +5,11 @@ import { signLanguages } from "../catalog/dummyData";
 import { Button } from "@/components/ui/button";
 import {handArray} from "@/DummyDataHands"
 
-type GestureResult = {
-  gestures: Array<Array<{ categoryName: string; score: number }>>;
-  handednesses: Array<Array<{ displayName: string }>>;
-  landmarks: Array<Array<{ x: number; y: number; z: number }>>;
-};
+// type GestureResult = {
+//   gestures: Array<Array<{ categoryName: string; score: number }>>;
+//   handednesses: Array<Array<{ displayName: string }>>;
+//   landmarks: Array<Array<{ x: number; y: number; z: number }>>;
+// };
 
 const ExercisePage1 = () => {
   const { lang, ex } = useParams();
@@ -17,7 +17,7 @@ const ExercisePage1 = () => {
   const [webcamRunning, setWebcamRunning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | null>(null);
   const currentLetterIndexRef = useRef(0); // Use ref for current letter index
   const [hintShown,setHintShown] = useState<boolean>(false);
 
@@ -183,7 +183,7 @@ const ExercisePage1 = () => {
       if (webcamRunning) {
         // Stop webcam and reset progress only
         setWebcamRunning(false);
-        cancelAnimationFrame(animationFrameRef.current);
+        cancelAnimationFrame(Number(animationFrameRef.current));
         if (videoRef.current?.srcObject) {
           (videoRef.current.srcObject as MediaStream).getTracks().forEach(track => track.stop());
         }
