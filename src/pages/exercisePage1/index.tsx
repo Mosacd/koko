@@ -15,6 +15,7 @@ const ExercisePage1 = () => {
   const { lang, ex } = useParams();
   const [recognizer, setRecognizer] = useState<GestureRecognizer>();
   const [webcamRunning, setWebcamRunning] = useState(false);
+  const [weBcamLoading, setWebCamLoading] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number | null>(null);
@@ -178,7 +179,7 @@ const ExercisePage1 = () => {
 
   const toggleWebcam = async () => {
     if (!recognizer) return;
-  
+    
     try {
       if (webcamRunning) {
         // Stop webcam and reset progress only
@@ -192,6 +193,7 @@ const ExercisePage1 = () => {
         currentLetterIndexRef.current = 0;
       } else {
         // Start webcam with current word but reset progress
+        setWebCamLoading(true);
         const stream = await navigator.mediaDevices.getUserMedia({ 
           video: { width: 1280, height: 720 } 
         });
@@ -201,6 +203,7 @@ const ExercisePage1 = () => {
           videoRef.current.onloadeddata = () => {
             canvasRef.current!.width = videoRef.current!.videoWidth;
             canvasRef.current!.height = videoRef.current!.videoHeight;
+            setWebCamLoading(false);
             setWebcamRunning(true);
             currentLetterIndexRef.current = 0;
             setCorrectLetters(new Array(word.length).fill(false));
@@ -260,13 +263,14 @@ const ExercisePage1 = () => {
       <div className="flex flex-col items-center gap-4">
         <Button
           onClick={toggleWebcam}
-          className={`px-6 py-3 rounded-lg text-white ${
+          className={`px-6 py-3 rounded-lg  ${
             webcamRunning ? "bg-red-500 hover:bg-red-600" : ""
           } transition-colors`}
         >
           {webcamRunning ? "Stop Webcam" : "Start Webcam"}
         </Button>
-          
+        <div className="bg-black w-72 h-72">mawoni</div>
+         {weBcamLoading && <span className="text-lg">Loading...</span>}
         <div className={`relative w-[640px] h-[480px] rounded-lg overflow-hidden ${webcamRunning ? 'visible' : 'hidden'} `}>
           <video
             ref={videoRef}
