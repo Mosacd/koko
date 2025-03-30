@@ -102,6 +102,5 @@ This project is open source and licensed under the MIT License. See the `LICENSE
 - 🔗 Live App: [https://kokolang.site](https://kokolang.site)
 - 🧠 Repo: [https://git.kokolang.site/BoysNight/KoKo](https://git.kokolang.site/BoysNight/KoKo)
 - ✉️ Email: lasha@kamadadze.com
-- 📸 Demo Video: [YouTube Link Here]
 
 ---
