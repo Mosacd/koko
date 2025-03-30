@@ -257,7 +257,7 @@ const ExercisePage = () => {
                 >
                     {webcamRunning ? "Stop Webcam" : "Start Webcam"}
                 </Button>
-                    {weBcamLoading &&  <span className="text-lg">Loading...</span> }
+                    {weBcamLoading &&  <span className="text-xl">Loading...</span> }
                 <div
                     className={`relative w-[640px] h-[480px] rounded-lg overflow-hidden ${webcamRunning ? 'visible' : 'hidden'} `}>
                     <video

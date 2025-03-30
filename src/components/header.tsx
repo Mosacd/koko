@@ -22,11 +22,11 @@ const Header: React.FC = () => {
                         <h1 className="text-3xl tracking-widest italic font-semibold text-black">K<span
                             className="text-main-color">o</span>K<span className="text-main-color">o</span></h1></Link>
                 </div>
-                <div className="w-full flex justify-between max-w-xs">
+                <div className="w-full flex justify-between max-w-md">
                     <Link to={'/aboutUs'}><Button className="text-xl tracking-widest  font-semibold text-background-color">About
                         Us</Button></Link>
-                    <Link to={'/aboutUs'}><Button className="text-xl tracking-widest  font-semibold text-background-color">Sign
-                        In</Button></Link>
+                    <Link to={'https://www.youtube.com/watch?v=Q7avDe-yKDQ'}  target="_blank"
+  rel="noopener noreferrer" ><Button className="text-xl tracking-widest  font-semibold text-background-color italic">Our Inspiration</Button></Link>
                 </div>
             </div>
         </header>

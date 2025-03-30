@@ -4,9 +4,9 @@
 
 @custom-variant dark (&:is(.dark *)); */
 @theme{
-    --color-background-color: oklch(0.93 0.034 272.788);
-    --color-main-color: oklch(0.585 0.233 277.117);
-    --color-main-hover: oklch(0.673 0.182 276.935) ;
+    --color-background-color: oklch(0.99 0.005 17.38);
+    --color-main-color: oklch(0.555 0.163 52.998);
+    --color-main-hover: oklch(0.655 0.163 52.998) ;
 }
 
 ::-webkit-scrollbar {
