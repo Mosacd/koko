@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { GestureRecognizer, FilesetResolver, DrawingUtils } from "@mediapipe/tasks-vision";
 import { signLanguages } from "../catalog/dummyData";
 import { Button } from "@/components/ui/button";
+import {handArray} from "@/DummyDataHands"
 
 type GestureResult = {
   gestures: Array<Array<{ categoryName: string; score: number }>>;
@@ -18,7 +19,7 @@ const ExercisePage = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationFrameRef = useRef<number>();
   const currentLetterIndexRef = useRef(0); // Use ref for current letter index
-
+  const [hintShown,setHintShown] = useState<boolean>(false);
 
 
   // Exercise setup
@@ -105,16 +106,21 @@ const ExercisePage = () => {
       const currentIndex = currentLetterIndexRef.current;
       
       if (currentIndex === -1 || currentIndex >= currentWord.length) return prev;
-      
+      console.log("expecterLetter", currentWord[currentIndex])
       const expectedLetter = currentWord[currentIndex];
       if (detectedLetter === expectedLetter) {
+        console.log("detectedLetter", detectedLetter)
         const newLetters = [...prev];
+        
         newLetters[currentIndex] = true;
+        console.log(newLetters)
+        console.log("this index works",newLetters[currentIndex])
         
         // Find next index immediately
         const nextIndex = newLetters.findIndex(v => !v);
         currentLetterIndexRef.current = nextIndex;
-        
+        setHintShown(false);
+
         return newLetters;
       }
       return prev;
@@ -172,15 +178,20 @@ const ExercisePage = () => {
 
   const toggleWebcam = async () => {
     if (!recognizer) return;
-
+  
     try {
       if (webcamRunning) {
+        // Stop webcam and reset progress only
         setWebcamRunning(false);
         cancelAnimationFrame(animationFrameRef.current);
         if (videoRef.current?.srcObject) {
           (videoRef.current.srcObject as MediaStream).getTracks().forEach(track => track.stop());
         }
+        // Reset progress for current word
+        setCorrectLetters(new Array(word.length).fill(false));
+        currentLetterIndexRef.current = 0;
       } else {
+        // Start webcam with current word but reset progress
         const stream = await navigator.mediaDevices.getUserMedia({ 
           video: { width: 1280, height: 720 } 
         });
@@ -191,7 +202,8 @@ const ExercisePage = () => {
             canvasRef.current!.width = videoRef.current!.videoWidth;
             canvasRef.current!.height = videoRef.current!.videoHeight;
             setWebcamRunning(true);
-            currentLetterIndexRef.current = 0; // Reset index when starting
+            currentLetterIndexRef.current = 0;
+            setCorrectLetters(new Array(word.length).fill(false));
             predictWebcam();
           };
         }
@@ -201,6 +213,7 @@ const ExercisePage = () => {
       setWebcamRunning(false);
     }
   };
+  
 
   const currentLetterIndex = correctLetters.indexOf(false);
 
@@ -208,6 +221,7 @@ const ExercisePage = () => {
     <div className="full max-w-6xl items-center m-auto flex flex-col gap-10">
       <h1 className="text-2xl font-semibold">Exercise {exercise?.id}</h1>
       
+    
       {/* Word display */}
       <div className="flex text-4xl font-bold gap-4">
         {word.split("").map((letter, index) => (
@@ -234,7 +248,7 @@ const ExercisePage = () => {
           
           <Button onClick={handleNewWord}>New Word</Button>
           <span className="text-3xl font-bold">"Completed! 🎉"</span>
-          <Button>next level</Button>
+          <Link to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${(exercise?.id || 1)}`} ><Button>next level</Button></Link>
           </div>
           
         ) : (
@@ -253,7 +267,7 @@ const ExercisePage = () => {
           {webcamRunning ? "Stop Webcam" : "Start Webcam"}
         </Button>
 
-        <div className="relative w-[640px] h-[480px] border-2 border-gray-200 rounded-lg overflow-hidden">
+        <div className={`relative w-[640px] h-[480px] rounded-lg overflow-hidden ${webcamRunning ? 'visible' : 'hidden'} `}>
           <video
             ref={videoRef}
             autoPlay
@@ -266,6 +280,40 @@ const ExercisePage = () => {
             className="absolute top-0 left-0 w-full h-full pointer-events-none"
           />
         </div>
+
+        <div className={`absolute left-45 bottom-[60px] ${webcamRunning ? 'visible' : 'hidden'} `}>
+        
+      <div className="relative w-20 h-20"> {/* Fixed size container */}
+  {/* Hint toggle button */}
+  <Button
+    onClick={() => setHintShown(!hintShown)}
+    className={`w-full h-full  text-white rounded-full flex items-center justify-center cursor-pointer transition-all ${
+      !hintShown ? 'visible' : 'hidden'
+    }`}
+  >
+    Hint
+  </Button>
+
+  {/* Hint content */}
+  <div className={`${hintShown ? 'visible' : 'hidden'}`}>
+    {currentLetterIndex !== -1 && 
+      handArray
+        .filter(obj => obj.letter === word[currentLetterIndex])
+        .map(obj => (
+          <div key={obj.letter} className="relative">
+            <img 
+              src={obj.image} 
+              alt={`Sign for ${obj.letter}`}
+              className="w-full h-full border-black border-2 rounded-lg p-1" 
+            />
+            
+          </div>
+        ))
+    }
+  </div>
+</div>
+    
+</div>
       </div>
     </div>
   );

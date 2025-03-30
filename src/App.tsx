@@ -20,7 +20,8 @@ function App() {
     <Route  path='/home' element = {<HomePage/>} />
     <Route path='/catalog' element= {<LanguageCatalog/>} />
     <Route path='/catalog/:lang' element= {<LangyageExercises/>} />
-    <Route path='/catalog/:lang/:ex' element= {<ExercisePage/>} />
+    <Route path='/catalog/:lang/level1/:ex' element= {<ExercisePage/>} />
+    <Route path='/catalog/:lang/level2/:ex' element= {<>mawoni</>} />
     <Route path="/whatever" element={<HandGestureRecognizer/>}/>
     <Route path="/aboutUs" element={<AboutUs/>}/>
     

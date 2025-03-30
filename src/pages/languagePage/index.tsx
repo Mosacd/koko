@@ -24,7 +24,7 @@ const LangyageExercises = () => {
         <div className="flex flex-col gap-5 w-full max-w-2xl">
             {signLanguages.find((item) => item.name === lang)?.exercises.map((exercise, index) => {
 return (
-    <Link  to={`/catalog/${lang}/${exercise.id}`} className="w-full">
+    <Link  to={`/catalog/${lang}/level${exercise.id}/${exercise.id}`} className="w-full">
     <Button className="w-full flex justify-between p-6 text-lg" key={index}>
         <div>Exercise {exercise.id}</div>
         <div>{exercise.level}</div>
