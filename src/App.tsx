@@ -7,6 +7,7 @@ import ExerciseOnePage from "./pages/exerciseOnePage"
 import ExerciseTwoPage from "./pages/exerciseTwoPage"
 
 import AboutUs from "./pages/aboutUsPage"
+import QrPage from "./pages/QrPage"
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                 <Route path='/catalog/:lang/level3/:ex' element={<ExerciseOnePage/>}/>
                 <Route path="/aboutUs" element={<AboutUs/>}/>
             </Route>
+            <Route path="/qrCode" element={<QrPage/>}/>
             <Route path='*' element={
                 <div className='flex w-screen h-screen justify-center items-center'>
                     <h1 className='text-8xl text-center'>404 Page Not Found</h1>
