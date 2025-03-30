@@ -2,11 +2,12 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import Layout from "./layout"
 import HomePage from "./pages/homePage"
 import LanguageCatalog from "./pages/catalog"
-import LangyageExercises from "./pages/languagePage"
-import ExercisePage from "./pages/exercisePage"
+import LanguageExercises from "./pages/languagePage"
+import ExercisePage1 from "./pages/exercisePage1"
 import HandGestureRecognizer from "./pages/test"
 
 import AboutUs from "./pages/aboutUsPage"
+import ExercisePage2 from "./pages/exercisePage2"
 
 
 function App() {
@@ -19,9 +20,9 @@ function App() {
     <Route  index element = {<Navigate to={'/home'}/>} />
     <Route  path='/home' element = {<HomePage/>} />
     <Route path='/catalog' element= {<LanguageCatalog/>} />
-    <Route path='/catalog/:lang' element= {<LangyageExercises/>} />
-    <Route path='/catalog/:lang/level1/:ex' element= {<ExercisePage/>} />
-    <Route path='/catalog/:lang/level2/:ex' element= {<>mawoni</>} />
+    <Route path='/catalog/:lang' element= {<LanguageExercises/>} />
+    <Route path='/catalog/:lang/level1/:ex' element= {<ExercisePage1/>} />
+    <Route path='/catalog/:lang/level2/:ex' element= {<ExercisePage2/>} />
     <Route path="/whatever" element={<HandGestureRecognizer/>}/>
     <Route path="/aboutUs" element={<AboutUs/>}/>
     

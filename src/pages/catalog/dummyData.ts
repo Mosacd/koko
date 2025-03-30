@@ -4,7 +4,7 @@ export const signLanguages = [
         description: "American Sign Language",
         image: "https://flagcdn.com/us.svg",
         exercises: [
-            { id: 1, title: "Basic Signs", word: ['at','dad','tre'], level: "Beginner" },
+            { id: 1, title: "Basic Signs", word: ['at','dad','tre','dog','cat','fish','frige','forge','house','doctor','nurese','tbilisi','kutaisi','beer'], level: "Beginner" },
             { id: 2, title: "Finger Spelling", word: ['Apple','Homework','Refrigerator'], level: "Intermediate" },
             { id: 3, title: "Conversational ASL", word: ['Apple','Homework','Refrigerator'], level: "Advanced" },
         ],

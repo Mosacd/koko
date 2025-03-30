@@ -12,7 +12,7 @@ const HomePage = () => {
       
        <div className="flex justify-center items-center gap-10 flex-col w-full max-w-2xl">
            <span>
-           At <span className="text-xl font-semibold text-main-color">CoCo</span>, we believe in the power of movement. Our specialized exercises strengthen the muscles used in sign language, helping you sign with greater clarity and confidence. Inspired by our gorilla mascot, we blend fitness with language skills—because stronger hands tell stronger stories. Join the Coco community today.           </span>
+           At <span className="text-xl font-semibold text-main-color">KoKo</span>, we believe in the power of movement. Our specialized exercises strengthen the muscles used in sign language, helping you sign with greater clarity and confidence. Inspired by our gorilla mascot, we blend fitness with language skills—because stronger hands tell stronger stories. Join the KoKo community today.           </span>
          <div className="flex w-full justify-center gap-10">
           <Link to={'/catalog'} className="w-full max-w-72"><Button className="w-full py-5">Practice</Button></Link>
           <Link to={'/'} className="w-full max-w-72 flex"><Button variant={"secondary"} className="w-full py-5 gap-2 fill-main-color">Join Us<svg className="

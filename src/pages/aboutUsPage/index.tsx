@@ -7,7 +7,7 @@ const AboutUs = () => {
    
         <div className="flex justify-center items-center gap-10 flex-col w-full max-w-2xl">
             <h1 className="font-semibold text-4xl i">About <span className="italic">C<span className="text-main-color">o</span>C<span className="text-main-color">o</span></span></h1>
-            <p className="text-lg">Coco transforms sign language learning into an exciting adventure through our gamified platform developed by university students passionate about accessibility and education.</p>
+            <p className="text-lg">KoKo transforms sign language learning into an exciting adventure through our gamified platform developed by university students passionate about accessibility and education.</p>
             <p className="text-lg">Led by our gorilla mascot, users earn points, unlock achievements, and level up as they master new signs while completing exercise challenges designed to build the strength and dexterity essential for fluid signing.</p>
             <p className="text-lg">Our unique approach combines linguistics research with game design principles, creating engaging daily challenges, competitive leaderboards, and reward systems that keep learners motivated through their sign language journey.</p>
             <p className="text-lg">Join our growing community where learning meets play, and watch as your signing skills evolve through consistent, enjoyable practice sessions that feel less like studying and more like gaming.</p>

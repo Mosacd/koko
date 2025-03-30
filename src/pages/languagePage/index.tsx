@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { signLanguages } from "../catalog/dummyData";
 import { Button } from "@/components/ui/button";
 
-const LangyageExercises = () => {
+const LanguageExercises = () => {
     const { lang } = useParams();
     // const navigate = useNavigate();
 
@@ -40,4 +40,4 @@ return (
     }
 
 
-export default LangyageExercises;
+export default LanguageExercises;
