@@ -19,7 +19,7 @@ function App() {
                 <Route path='/catalog/:lang' element={<LanguageExercises/>}/>
                 <Route path='/catalog/:lang/level1/:ex' element={<ExerciseOnePage/>}/>
                 <Route path='/catalog/:lang/level2/:ex' element={<ExerciseTwoPage/>}/>
-                <Route path='/catalog/:lang/level1/:ex' element={<ExerciseOnePage/>}/>
+                <Route path='/catalog/:lang/level3/:ex' element={<ExerciseOnePage/>}/>
                 <Route path="/aboutUs" element={<AboutUs/>}/>
             </Route>
             <Route path='*' element={
