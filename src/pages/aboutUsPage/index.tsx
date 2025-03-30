@@ -1,8 +1,10 @@
+import logo from "@/assets/Group 21.svg"
+
 const AboutUs = () => {
 
     return (
         <div className="w-full mt-20 max-w-6xl flex items-center m-auto justify-center gap-20">
-            <svg className="fill-main-hover" height="400px" width="400px" version="1.1" id="Layer_1"
+            {/* <svg className="fill-main-hover" height="400px" width="400px" version="1.1" id="Layer_1"
                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -14,7 +16,9 @@ const AboutUs = () => {
                     <path className="fill-main-color"
                           d="M391.152,308.188v-25.376c41.312-23.392,55.832-75.848,32.44-117.16s-75.848-55.832-117.16-32.44 s-55.832,75.848-32.44,117.16c7.672,13.552,18.888,24.76,32.44,32.44v25.376C226.328,311.932,185.6,366.1,185.6,402.508v29.896H512 v-29.896C512,366.1,471.264,311.932,391.152,308.188z"></path>
                 </g>
-            </svg>
+            </svg> */}
+
+            <img src={logo} alt="" className="w-full max-w-md" />
 
             <div className="flex justify-center items-center gap-10 flex-col w-full max-w-2xl">
                 <h1 className="font-semibold text-4xl i">About <span className="italic">K<span
