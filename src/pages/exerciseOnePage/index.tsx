@@ -10,6 +10,7 @@ const ExercisePage = () => {
     const [recognizer, setRecognizer] = useState<GestureRecognizer>();
     const [webcamRunning, setWebcamRunning] = useState(false);
     const [weBcamLoading, setWebCamLoading] = useState(false);
+    const [showLandmarks, setShowLandmarks] = useState(true);
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const animationFrameRef = useRef<number>(0);
@@ -97,7 +98,6 @@ const ExercisePage = () => {
             const currentIndex = currentLetterIndexRef.current;
 
             if (currentIndex === -1 || currentIndex >= currentWord.length) return prev;
-            console.log("expecterLetter", currentWord[currentIndex])
             const expectedLetter = currentWord[currentIndex];
             if (detectedLetter === expectedLetter) {
                 console.log("detectedLetter", detectedLetter)
@@ -108,8 +108,7 @@ const ExercisePage = () => {
                 console.log("this index works", newLetters[currentIndex])
 
                 // Find next index immediately
-                const nextIndex = newLetters.findIndex(v => !v);
-                currentLetterIndexRef.current = nextIndex;
+                currentLetterIndexRef.current = newLetters.findIndex(v => !v);
                 setHintShown(false);
 
                 return newLetters;
@@ -117,7 +116,6 @@ const ExercisePage = () => {
             return prev;
         });
     };
-
 
     const predictWebcam = async () => {
         if (!videoRef.current || !canvasRef.current || !recognizer) return;
@@ -137,12 +135,12 @@ const ExercisePage = () => {
             canvasCtx.scale(-1, 1);
 
             const drawingUtils = new DrawingUtils(canvasCtx);
-            if (results.landmarks) {
+            if (showLandmarks && results.landmarks) {
                 for (const landmarks of results.landmarks) {
                     drawingUtils.drawConnectors(
                         landmarks,
                         GestureRecognizer.HAND_CONNECTIONS,
-                        {color: '#00FF00', lineWidth: 2}
+                        { color: '#00FF00', lineWidth: 2 }
                     );
                     drawingUtils.drawLandmarks(landmarks, {
                         color: '#9e4444',
@@ -151,6 +149,7 @@ const ExercisePage = () => {
                     });
                 }
             }
+
             canvasCtx.restore();
 
             // Process gestures
@@ -272,6 +271,13 @@ const ExercisePage = () => {
                         ref={canvasRef}
                         className="absolute top-0 left-0 w-full h-full pointer-events-none"
                     />
+                    {/* Toggle Landmark Drawing */}
+                    <button
+                        onClick={() => setShowLandmarks(prev => !prev)}
+                        className="absolute top-3 right-3 bg-white bg-opacity-80 text-black rounded-full px-3 py-1 text-sm shadow-md hover:bg-opacity-100 transition"
+                    >
+                        {showLandmarks ? "Hide Landmarks" : "Show Landmarks"}
+                    </button>
                 </div>
 
                 <div className={`absolute left-45 bottom-[60px] ${webcamRunning ? 'visible' : 'hidden'} `}>

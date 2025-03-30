@@ -1,7 +1,7 @@
 import {videoArray} from "@/DummyDataVideos";
 import {signLanguages} from "../catalog/dummyData";
 import {Link, useParams} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Button} from "@/components/ui/button";
 
 const ExercisePage = () => {

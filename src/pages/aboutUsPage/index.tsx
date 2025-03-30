@@ -17,9 +17,9 @@ const AboutUs = () => {
             </svg>
 
             <div className="flex justify-center items-center gap-10 flex-col w-full max-w-2xl">
-                <h1 className="font-semibold text-4xl i">About <span className="italic">C<span
-                    className="text-main-color">o</span>C<span className="text-main-color">o</span></span></h1>
-                <p className="text-lg">Coco transforms sign language learning into an exciting adventure through our
+                <h1 className="font-semibold text-4xl i">About <span className="italic">K<span
+                    className="text-main-color">o</span>K<span className="text-main-color">o</span></span></h1>
+                <p className="text-lg">Koko transforms sign language learning into an exciting adventure through our
                     gamified platform developed by university students passionate about accessibility and education.</p>
                 <p className="text-lg">Led by our gorilla mascot, users earn points, unlock achievements, and level up
                     as they master new signs while completing exercise challenges designed to build the strength and
