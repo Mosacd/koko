@@ -2,9 +2,9 @@ export const signLanguages = [
     {
         name: "ASL",
         description: "American Sign Language",
-        image: "https://flagcdn.com/us.svg",
+        image: "/flags/us.svg",
         exercises: [
-            { id: 1, title: "Basic Signs", word: ['at','dad','tre','dog','cat','fish','frige','forge','house','doctor','nurese','tbilisi','kutaisi','beer'], level: "Beginner" },
+            { id: 1, title: "Basic Signs", word: ['at','dad','tre','dog','cat','fish','fri','forest','house','doctor','nurese','tbilisi','kutaisi','beer'], level: "Beginner" },
             { id: 2, title: "Finger Spelling", word: ['Apple','Homework','Refrigerator'], level: "Intermediate" },
             { id: 3, title: "Conversational ASL", word: ['Apple','Homework','Refrigerator'], level: "Advanced" },
         ],
@@ -12,7 +12,7 @@ export const signLanguages = [
     {
         name: "BSL",
         description: "British Sign Language",
-        image: "https://flagcdn.com/gb.svg",
+        image: "/flags/uk.svg",
         exercises: [
             {id: 4, title: "Basic Signs", word: ['Apple', 'Homework', 'Refrigerator'], level: "Beginner"},
             {id: 5, title: "Finger Spelling", word: ['Apple', 'Homework', 'Refrigerator'], level: "Intermediate"},
@@ -22,7 +22,7 @@ export const signLanguages = [
     {
         name: "FSL",
         description: "French Sign Language",
-        image: "https://flagcdn.com/fr.svg",
+        image: "/flags/france.svg",
         exercises: [
             {id: 7, title: "Basic Signs", word: ['Apple', 'Homework', 'Refrigerator'], level: "Beginner"},
             {id: 8, title: "Finger Spelling", word: ['Apple', 'Homework', 'Refrigerator'], level: "Intermediate"},
@@ -32,7 +32,7 @@ export const signLanguages = [
     {
         name: "ISL",
         description: "Indian Sign Language",
-        image: "https://flagcdn.com/in.svg",
+        image: "/flags/india.svg",
         exercises: [
             {id: 10, title: "Basic Signs", word: ['सिलेंडर'], level: "Beginner"},
             {id: 11, title: "Finger Spelling", word: ['गृहकार्य'], level: "Intermediate"},
@@ -42,7 +42,7 @@ export const signLanguages = [
     {
         name: "CSL",
         description: "Chinese Sign Language",
-        image: "https://flagcdn.com/cn.svg",
+        image: "/flags/china.svg",
         exercises: [
             {id: 13, title: "Basic Signs", word: ['苹果'], level: "Beginner"},
             {id: 14, title: "Finger Spelling", word: ['家庭作业'], level: "Intermediate"},
@@ -50,19 +50,9 @@ export const signLanguages = [
         ],
     },
     {
-        name: "Auslan",
-        description: "Australian Sign Language",
-        image: "https://flagcdn.com/au.svg",
-        exercises: [
-            {id: 16, title: "Basic Signs", word: ['Apple'], level: "Beginner"},
-            {id: 17, title: "Finger Spelling", word: ['Homework'], level: "Intermediate"},
-            {id: 18, title: "Conversational Auslan", word: ['Refrigerator'], level: "Advanced"},
-        ],
-    },
-    {
         name: "JSL",
         description: "Japanese Sign Language",
-        image: "https://flagcdn.com/jp.svg",
+        image: "/flags/japan.svg",
         exercises: [
             {id: 19, title: "Basic Signs", word: ['リンゴ'], level: "Beginner"},
             {id: 20, title: "Finger Spelling", word: ['宿題'], level: "Intermediate"},
@@ -72,7 +62,7 @@ export const signLanguages = [
     {
         name: "SSL",
         description: "Spanish Sign Language",
-        image: "https://flagcdn.com/es.svg",
+        image: "/flags/spain.svg",
         exercises: [
             {id: 22, title: "Basic Signs", word: ['Manzana'], level: "Beginner"},
             {id: 23, title: "Finger Spelling", word: ['Tareas'], level: "Intermediate"},
@@ -82,7 +72,7 @@ export const signLanguages = [
     {
         name: "GSL",
         description: "German Sign Language",
-        image: "https://flagcdn.com/de.svg",
+        image: "/flags/germany.svg",
         exercises: [
             {id: 25, title: "Basic Signs", word: ['Apfel'], level: "Beginner"},
             {id: 26, title: "Finger Spelling", word: ['Hausaufgaben'], level: "Intermediate"},
@@ -92,7 +82,7 @@ export const signLanguages = [
     {
         name: "MSL",
         description: "Mexican Sign Language",
-        image: "https://flagcdn.com/mx.svg",
+        image: "/flags/mexico.svg",
         exercises: [
             {id: 28, title: "Basic Signs", word: ['Manzana'], level: "Beginner"},
             {id: 29, title: "Finger Spelling", word: ['Tareas'], level: "Intermediate"},

@@ -17,8 +17,10 @@ const LanguageCatalog = () => {
                                 className='w-full max-w-72 bg-main-color rounded-lg'
                             >
                                 <Button
-                                    className='min-h-28 justify-between w-full  overflow-hidden relative flex cursor-pointer items-center p-5 px-5 border-black border-2'>
-                                    <img src={item.image} alt="" className='w-20'/>
+                                    className='min-h-28 justify-center gap-5 w-full  overflow-hidden relative flex cursor-pointer items-center p-5 px-5 border-black border-2'>
+                                    <div>
+                                    <img src={item.image} alt="" className=' w-20 h-20  border-[1px] border-black rounded-full'/>
+                                    </div>
                                     <span className='font-semibold text-4xl'>{item.name}</span>
                                     {index !== 0 && (<div className="absolute inset-0 bg-black opacity-50"></div>)}
                                 </Button>
