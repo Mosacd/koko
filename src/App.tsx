@@ -3,7 +3,8 @@ import Layout from "./layout"
 import HomePage from "./pages/homePage"
 import LanguageCatalog from "./pages/catalog"
 import LanguageExercises from "./pages/languagePage"
-import ExercisePage from "./pages/exercisePage"
+import ExerciseOnePage from "./pages/exerciseOnePage"
+import ExerciseTwoPage from "./pages/exerciseTwoPage"
 
 import AboutUs from "./pages/aboutUsPage"
 
@@ -16,8 +17,8 @@ function App() {
                 <Route path='/home' element={<HomePage/>}/>
                 <Route path='/catalog' element={<LanguageCatalog/>}/>
                 <Route path='/catalog/:lang' element={<LanguageExercises/>}/>
-                <Route path='/catalog/:lang/level1/:ex' element={<ExercisePage/>}/>
-                <Route path='/catalog/:lang/level2/:ex' element={<>mawoni</>}/>
+                <Route path='/catalog/:lang/level1/:ex' element={<ExerciseOnePage/>}/>
+                <Route path='/catalog/:lang/level2/:ex' element={<ExerciseTwoPage/>}/>
                 <Route path="/aboutUs" element={<AboutUs/>}/>
             </Route>
             <Route path='*' element={

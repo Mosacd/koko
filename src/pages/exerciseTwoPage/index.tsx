@@ -1,11 +1,11 @@
-import { videoArray } from "@/DummyDataVideos";
-import { signLanguages } from "../catalog/dummyData";
-import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import {videoArray} from "@/DummyDataVideos";
+import {signLanguages} from "../catalog/dummyData";
+import {Link, useParams} from "react-router-dom";
+import {useState} from "react";
+import {Button} from "@/components/ui/button";
 
-const ExercisePage2 = () => {
-    const { lang, ex } = useParams();
+const ExercisePage = () => {
+    const {lang, ex} = useParams();
     const [videoName, setVideoName] = useState(getRandomVideo());
     const [complete, setComplete] = useState(false);
     const [incorrect, setIncorrect] = useState(false);
@@ -45,17 +45,18 @@ const ExercisePage2 = () => {
     return (
         <div className="full max-w-6xl items-center m-auto flex flex-col gap-5 mb-30">
             <h1 className="text-2xl font-semibold">Exercise {exercise?.id}</h1>
-          
+
             {complete && (
-            
-            <div className="flex w-full max-w-2xl my-5 justify-between items-center">
-          
-          <Button onClick={() => handleNewVideo()}>New Word</Button>
-          <span className="text-3xl font-bold">"Completed! 🎉"</span>
-          <Link to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${(exercise?.id || 1)}`} ><Button>next level</Button></Link>
-          </div>
-          
-        ) }
+
+                <div className="flex w-full max-w-2xl my-5 justify-between items-center">
+
+                    <Button onClick={() => handleNewVideo()}>New Word</Button>
+                    <span className="text-3xl font-bold">"Completed! 🎉"</span>
+                    <Link to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${(exercise?.id || 1)}`}><Button>next
+                        level</Button></Link>
+                </div>
+
+            )}
 
             {incorrect && <span className="text-red-600 text-xl">Incorrect!</span>}
 
@@ -71,7 +72,7 @@ const ExercisePage2 = () => {
                                 height="auto"
                                 className="border-black border-2 rounded-lg p-1"
                             >
-                                <source src={obj.video} type="video/mp4" />
+                                <source src={obj.video} type="video/mp4"/>
                                 Your browser does not support the video tag.
                             </video>
                         </div>
@@ -83,9 +84,9 @@ const ExercisePage2 = () => {
             </p>
 
             {/* Added controlled input */}
-            <input 
-                className="w-full max-w-xl h-10 p-2 bg-indigo-50 border-2 border-black" 
-                type="text" 
+            <input
+                className="w-full max-w-xl h-10 p-2 bg-indigo-50 border-2 border-black"
+                type="text"
                 value={inputValue}
                 onChange={handleInputChange}
                 onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
@@ -98,5 +99,4 @@ const ExercisePage2 = () => {
         </div>
     )
 }
-
-export default ExercisePage2;
+export default ExercisePage;
