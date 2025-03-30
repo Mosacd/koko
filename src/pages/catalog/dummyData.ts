@@ -72,7 +72,7 @@ export const signLanguages = [
     {
         name: "GSL",
         description: "German Sign Language",
-        image: "/flags/germany.svg",
+        image: "/flags/georgia.svg",
         exercises: [
             {id: 25, title: "Basic Signs", word: ['Apfel'], level: "Beginner"},
             {id: 26, title: "Finger Spelling", word: ['Hausaufgaben'], level: "Intermediate"},
