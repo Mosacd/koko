@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/access-log-format: |
+      '$remote_addr - $host [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"'
+    nginx.ingress.kubernetes.io/enable-access-log: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.ingress.kubernetes.io/proxy-cache: "true"
+    nginx.ingress.kubernetes.io/proxy-cache-key: $host$request_uri
+    nginx.ingress.kubernetes.io/proxy-cache-path: /data/nginx/cache
+    nginx.ingress.kubernetes.io/proxy-cache-use-stale: error timeout updating
+    nginx.ingress.kubernetes.io/proxy-connection: upgrade
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: koko-prew-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: prew.kokolang.site
+    http:
+      paths:
+      - backend:
+          service:
+            name: koko-prew
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - prew.kokolang.site
+    secretName: koko-prew-tls

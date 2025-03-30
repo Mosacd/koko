@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: koko-prew
+spec:
+  selector:
+    matchLabels:
+      app: koko-prew
+  template:
+    metadata:
+      labels:
+        app: koko-prew
+    spec:
+      containers:
+        - name: koko
+          image: kamadadze/koko-prew
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 80
+
