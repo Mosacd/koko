@@ -43,16 +43,17 @@ const ExercisePage = () => {
     }
 
     return (
-        <div className="full max-w-6xl items-center m-auto flex flex-col gap-5 mb-30">
+        <div className="full max-w-6xl px-5 items-center m-auto flex flex-col gap-5 mb-30">
             <h1 className="text-2xl font-semibold">Exercise {exercise?.id}</h1>
 
             {complete && (
 
-                <div className="flex w-full max-w-2xl my-5 justify-between items-center">
+                <div className="flex gap-5 flex-col md:flex-row w-full max-w-2xl my-5 justify-between items-center">
 
-                    <Button onClick={() => handleNewVideo()}>New Word</Button>
-                    <span className="text-3xl font-bold">"Completed! 🎉"</span>
-                    <Link to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${(exercise?.id || 1)}`}><Button>next
+                    <Button className="w-full max-w-lg md:max-w-40" onClick={() => handleNewVideo()}>New Word</Button>
+                    <span className="text-nowrap text-3xl font-bold">"Completed! 🎉"</span>
+                    <Link className="w-full max-w-lg md:max-w-40" to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${((exercise?.id || 1) + 1)}`}>
+                    <Button className="w-full md:max-w-40">next
                         level</Button></Link>
                 </div>
 
@@ -93,7 +94,7 @@ const ExercisePage = () => {
             />
 
             {/* Fixed button click handler */}
-            <Button onClick={handleSubmit}>
+            <Button className="w-full md:max-w-40" onClick={handleSubmit}>
                 Submit
             </Button>
         </div>

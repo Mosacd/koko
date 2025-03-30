@@ -3,7 +3,7 @@ import logo from "@/assets/Group 21.svg"
 const AboutUs = () => {
 
     return (
-        <div className="w-full mt-20 max-w-6xl flex items-center m-auto justify-center gap-20">
+        <div className="w-full mt-20 max-w-6xl flex-col md:flex-row px-4 flex items-center m-auto justify-center gap-20">
             {/* <svg className="fill-main-hover" height="400px" width="400px" version="1.1" id="Layer_1"
                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

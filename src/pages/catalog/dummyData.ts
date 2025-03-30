@@ -16,10 +16,9 @@ export const signLanguages = [
   "Operation",
   "Fantastic",
   "Overload",
-  "Characterization",
   "Relationship",
   "Definition",
-  "Exploration"], level: "Advanced" },
+  ], level: "Advanced" },
         ],
     },
     {

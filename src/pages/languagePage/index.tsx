@@ -8,9 +8,9 @@ const LanguageExercises = () => {
     } = useParams();
 
     return (
-        <div className="w-full max-w-6xl flex-col flex gap-10 items-center m-auto  justify-center">
+        <div className="w-full p-4 max-w-6xl flex-col flex gap-10 items-center m-auto  justify-center">
             <h1 className='text-3xl text-center'>{lang} Exercises</h1>
-            <div className="flex flex-col gap-5 w-full max-w-2xl">{
+            <div className="flex flex-col gap-5 w-full max-w-lg md:max-w-2xl">{
                 signLanguages.find((item) => item.name === lang)?.exercises.map((exercise, index) => {
                         return (
                             <Link to={`/catalog/${lang}/level${exercise.id}/${exercise.id}`} className="w-full">

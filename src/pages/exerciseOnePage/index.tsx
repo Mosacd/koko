@@ -219,12 +219,50 @@ useEffect(() => {
     const currentLetterIndex = correctLetters.indexOf(false);
 
     return (
-        <div className="full max-w-6xl items-center m-auto flex flex-col gap-10">
-            <h1 className="text-2xl font-semibold">Exercise {exercise?.id}</h1>
+        <div className="full max-w-6xl items-center m-auto flex flex-col gap-5 px-4 md:px-5 lg:px-10">
+            <h1 className="text-2xl font-semibold">Level {exercise?.id}</h1>
 
 
-            {/* Word display */}
-            <div className="flex text-4xl font-bold gap-4">
+           
+
+           
+
+            {/* Webcam section */}
+            <div className="flex flex-col w-full items-center gap-4">
+            <Button
+    onClick={toggleWebcam}
+    className={`px-6 py-3 w-full max-w-lg md:w-fit rounded-lg text-white ${
+        webcamRunning ? "bg-red-500 hover:bg-red-600" : ""
+    } transition-colors`}
+    disabled={recognizerLoading || weBcamLoading}
+>
+    {recognizerLoading ? "Loading Resources..." : 
+     webcamRunning ? "Stop Webcam" : "Start Webcam"}
+</Button>
+
+
+ {/* Progress indicator */}
+ <div className="text-lg text-center my-5 max-w-2xl w-full  text-gray-600">
+                {currentLetterIndex === -1 ? (
+
+                    <div className="flex gap-5 flex-col md:flex-row w-full justify-between items-center">
+
+                        <Button className="w-full max-w-lg md:max-w-40" onClick={handleNewWord}>New Word</Button>
+                        <span className="text-nowrap  text-3xl font-bold">"Completed! 🎉"</span>
+                        <Link className="w-full max-w-lg md:max-w-40" to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${((exercise?.id || 1) + 1 )}`}>
+                        <Button className="w-full md:max-w-40">next
+                            level</Button></Link>
+                    </div>
+
+                ) : (
+                    `Sign the ${ordinal(currentLetterIndex + 1)} letter: ${word[currentLetterIndex]}`
+                )}
+            </div>
+                   
+
+
+ {/* Word display */}
+ <div className="flex justify-center text-3xl md:text-4xl font-bold gap-4 flex-wrap">
                 {word.split("").map((letter, index) => (
                     <div key={index} className="flex items-center">
             <span className={`transition-colors duration-300 ${
@@ -239,38 +277,48 @@ useEffect(() => {
                 ))}
             </div>
 
-            {/* Progress indicator */}
-            <div className="text-lg text-center max-w-2xl w-full text-gray-600">
-                {currentLetterIndex === -1 ? (
+            {weBcamLoading &&  <span className="text-xl">Loading...</span> }
 
-                    <div className="flex w-full justify-between items-center">
+                    <section className="flex justify-between gap-4 w-full items-center flex-col md:flex-row">
+                        
+        <div className={`w-full md:w-fit ${webcamRunning ? 'visible' : 'hidden'} `}>
 
-                        <Button onClick={handleNewWord}>New Word</Button>
-                        <span className="text-3xl font-bold">"Completed! 🎉"</span>
-                        <Link to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${(exercise?.id || 1)}`}><Button>next
-                            level</Button></Link>
+                    <div className="flex justify-center mb-5 relative max-w-lg m-auto md:max-w-fit min-w-[100px] h-[100px]"> {/* Fixed size container */}
+                        {/* Hint toggle button */}
+                        <Button
+                            onClick={() => setHintShown(!hintShown)}
+                            className={`w-full h-10 md:h-full text-xl text-white md:rounded-full flex items-center justify-center cursor-pointer transition-all ${
+                                !hintShown ? 'visible' : 'hidden'
+                            }`}
+                        >
+                            Hint
+                        </Button>
+
+                        {/* Hint content */}
+                        <div className={`${hintShown ? 'visible' : 'hidden'}`}>
+                            {currentLetterIndex !== -1 &&
+                                handArray
+                                    .filter(obj => obj.letter === word[currentLetterIndex])
+                                    .map(obj => (
+                                        <div key={obj.letter}>
+                                            <img
+                                                src={obj.image}
+                                                alt={`Sign for ${obj.letter}`}
+                                                className="w-full max-w-20  h-full border-black border-2 rounded-lg p-1"
+                                            />
+
+                                        </div>
+                                    ))
+                            }
+                        </div>
                     </div>
 
-                ) : (
-                    `Sign the ${ordinal(currentLetterIndex + 1)} letter: ${word[currentLetterIndex]}`
-                )}
-            </div>
+                </div>
 
-            {/* Webcam section */}
-            <div className="flex flex-col items-center gap-4">
-            <Button
-    onClick={toggleWebcam}
-    className={`px-6 py-3 rounded-lg text-white ${
-        webcamRunning ? "bg-red-500 hover:bg-red-600" : ""
-    } transition-colors`}
-    disabled={recognizerLoading || weBcamLoading}
->
-    {recognizerLoading ? "Loading Resources..." : 
-     webcamRunning ? "Stop Webcam" : "Start Webcam"}
-</Button>
-                    {weBcamLoading &&  <span className="text-xl">Loading...</span> }
+                
+
                 <div
-                    className={`relative w-[640px] h-[480px] rounded-lg overflow-hidden ${webcamRunning ? 'visible' : 'hidden'} `}>
+                    className={`relative max-w-[640px] max-h-[480px] rounded-lg overflow-hidden ${webcamRunning ? 'visible' : 'hidden'} `}>
                     <video
                         ref={videoRef}
                         autoPlay
@@ -290,40 +338,19 @@ useEffect(() => {
                         {showLandmarks ? "Hide Landmarks" : "Show Landmarks"}
                     </button>
                 </div>
+                        
+                        <div className={`flex text-center flex-col md:max-w-[100px] break-words h-50 relative ${webcamRunning ? 'visible' : 'hidden'} `}>
+                            {/* <div className="absolute top-0 left-0"> */}
+                          <h1 className="text-lg border-b-2 text-center w-full border-black">Disclaimer</h1>
+                            <span>
+                                once the cam is opened open your palm and slowely put it into the frame
+                            </span>
+                            </div>
+                        {/* </div> */}
 
-                <div className={`absolute left-45 bottom-[60px] ${webcamRunning ? 'visible' : 'hidden'} `}>
-
-                    <div className="relative w-20 h-20"> {/* Fixed size container */}
-                        {/* Hint toggle button */}
-                        <Button
-                            onClick={() => setHintShown(!hintShown)}
-                            className={`w-full h-full  text-white rounded-full flex items-center justify-center cursor-pointer transition-all ${
-                                !hintShown ? 'visible' : 'hidden'
-                            }`}
-                        >
-                            Hint
-                        </Button>
-
-                        {/* Hint content */}
-                        <div className={`${hintShown ? 'visible' : 'hidden'}`}>
-                            {currentLetterIndex !== -1 &&
-                                handArray
-                                    .filter(obj => obj.letter === word[currentLetterIndex])
-                                    .map(obj => (
-                                        <div key={obj.letter} className="relative">
-                                            <img
-                                                src={obj.image}
-                                                alt={`Sign for ${obj.letter}`}
-                                                className="w-full h-full border-black border-2 rounded-lg p-1"
-                                            />
-
-                                        </div>
-                                    ))
-                            }
-                        </div>
-                    </div>
-
-                </div>
+                    </section>
+                
+        
             </div>
         </div>
     );
