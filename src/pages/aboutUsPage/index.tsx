@@ -3,7 +3,7 @@ import logo from "@/assets/Group 21.svg"
 const AboutUs = () => {
 
     return (
-        <div className="w-full mt-20 max-w-6xl flex-col md:flex-row px-4 flex items-center m-auto justify-center gap-20">
+        <div className="w-full mt-20 max-w-6xl flex-col md:flex-row px-4 flex items-center m-auto justify-center gap-10">
             {/* <svg className="fill-main-hover" height="400px" width="400px" version="1.1" id="Layer_1"
                  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -18,23 +18,9 @@ const AboutUs = () => {
                 </g>
             </svg> */}
 
-            <img src={logo} alt="" className="w-full max-w-md" />
-
-            <div className="flex justify-center items-center gap-10 flex-col w-full max-w-2xl">
-                <h1 className="font-semibold text-4xl i">About <span className="italic">K<span
-                    className="text-main-color">o</span>K<span className="text-main-color">o</span></span></h1>
-                <p className="text-lg">Koko transforms sign language learning into an exciting adventure through our
-                    gamified platform developed by university students passionate about accessibility and education.</p>
-                <p className="text-lg">Led by our gorilla mascot, users earn points, unlock achievements, and level up
-                    as they master new signs while completing exercise challenges designed to build the strength and
-                    dexterity essential for fluid signing.</p>
-                <p className="text-lg">Our unique approach combines linguistics research with game design principles,
-                    creating engaging daily challenges, competitive leaderboards, and reward systems that keep learners
-                    motivated through their sign language journey.</p>
-                <p className="text-lg">Join our growing community where learning meets play, and watch as your signing
-                    skills evolve through consistent, enjoyable practice sessions that feel less like studying and more
-                    like gaming.</p>
-            </div>
+            <img src={logo} alt="" className="w-full shrink-1 max-w-md" />
+            <h1 className="text-[7rem] shrink-1 sm:text-[9rem] lg:text-[13rem] break-words text-main-color [-webkit-text-stroke:_1px_oklch(0.555_0.163_52.998)]">Monkey</h1>
+         
         </div>
     )
 }

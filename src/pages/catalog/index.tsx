@@ -6,7 +6,7 @@ const LanguageCatalog = () => {
 
     return (
         <div className="full max-w-6xl m-auto flex flex-col gap-10">
-            <h1 className='text-center text-3xl font-semibold'>Choose Your Language</h1>
+            <h1 className='text-center text-3xl font-semibold px-2'>Choose Your Language</h1>
             <div className='flex flex-wrap justify-center gap-10 '>
                 {
                     signLanguages.map((item, index) => {

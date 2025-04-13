@@ -44,24 +44,23 @@ const ExercisePage = () => {
 
     return (
         <div className="full max-w-6xl px-5 items-center m-auto flex flex-col gap-5 mb-30">
-            <h1 className="text-2xl font-semibold">Exercise {exercise?.id}</h1>
+            <h1 className="text-2xl font-semibold">Level {exercise?.id}</h1>
 
-            {complete && (
+         
 
                 <div className="flex gap-5 flex-col md:flex-row w-full max-w-2xl my-5 justify-between items-center">
 
-                    <Button className="w-full max-w-lg md:max-w-40" onClick={() => handleNewVideo()}>New Word</Button>
-                    <span className="text-nowrap text-3xl font-bold">"Completed! 🎉"</span>
-                    <Link className="w-full max-w-lg md:max-w-40" to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${((exercise?.id || 1) + 1)}`}>
-                    <Button className="w-full md:max-w-40">next
+                    <Button className="w-full max-w-lg md:max-w-48" onClick={() => handleNewVideo()}>New Word</Button>
+                    {complete && <span className="text-nowrap text-3xl font-bold text-green-700">Completed! 🎉</span>}
+                    {incorrect && <span className="text-red-600 text-xl">Incorrect!</span>}
+                    <Link className="w-full max-w-lg md:max-w-48" to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${((exercise?.id || 1) + 1)}`}>
+                    <Button className="w-full">Next
                         level</Button></Link>
                 </div>
 
-            )}
+            
 
-            {incorrect && <span className="text-red-600 text-xl">Incorrect!</span>}
-
-            <div className="w-full max-w-3xl">
+            <div className="w-full bg-black h-[437px] rounded-lg max-w-3xl">
                 {videoArray
                     .filter(obj => obj.name === videoName) // Fixed property name
                     .map(obj => (
@@ -71,7 +70,7 @@ const ExercisePage = () => {
                                 controls
                                 width="100%"
                                 height="auto"
-                                className="border-black border-2 rounded-lg p-1"
+                                className="border-black bg-black border-2 rounded-lg p-1"
                             >
                                 <source src={obj.video} type="video/mp4"/>
                                 Your browser does not support the video tag.
@@ -80,13 +79,13 @@ const ExercisePage = () => {
                     ))}
             </div>
 
-            <p className="text-xl font-semibold mt-5">
+            <p className="text-xl font-semibold text-center mt-5">
                 Write down the word signed in the video
             </p>
 
             {/* Added controlled input */}
             <input
-                className="w-full max-w-xl h-10 p-2 bg-indigo-50 border-2 border-black"
+                className="w-full max-w-xl h-10 p-2 bg-indigo-50 border-2 border-black rounded-lg"
                 type="text"
                 value={inputValue}
                 onChange={handleInputChange}
@@ -94,7 +93,7 @@ const ExercisePage = () => {
             />
 
             {/* Fixed button click handler */}
-            <Button className="w-full md:max-w-40" onClick={handleSubmit}>
+            <Button className="w-full max-w-lg md:max-w-49 tracking-widest" onClick={handleSubmit}>
                 Submit
             </Button>
         </div>
