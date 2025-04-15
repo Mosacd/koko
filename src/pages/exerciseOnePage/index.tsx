@@ -242,15 +242,15 @@ useEffect(() => {
            
 
             {/* Webcam section */}
-            <div className="flex flex-col w-full items-center gap-4">
+            <div className="flex flex-col w-full items-center gap-1 sm:gap-2 md:gap-3">
         
 
 <div className="flex gap-5 flex-col md:flex-row w-full justify-center items-center">
 
-<Button className="w-full max-w-lg md:max-w-48" onClick={handleNewWord}>New Word</Button>
+
 <Link className="w-full  max-w-lg md:max-w-48" to={`/catalog/${lang}/level${(exercise?.id || 1) + 1}/${((exercise?.id || 1) + 1 )}`}>
 <Button className="w-full md:max-w-48">Next
-    level</Button></Link>
+    Level</Button></Link>
     <Button
     onClick={toggleWebcam}
     className={`w-full max-w-lg md:max-w-48 text-white ${
@@ -261,6 +261,7 @@ useEffect(() => {
     {recognizerLoading ? "Loading..." : 
      webcamRunning ? "Stop Webcam" : "Start Webcam"}
 </Button>
+<Button className="w-full max-w-lg md:max-w-48" onClick={handleNewWord}>New Word</Button>
 </div>
 
  {/* Progress indicator */}
