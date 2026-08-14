@@ -1,9 +1,10 @@
-import {lazy, Suspense} from "react"
-import {Navigate, Route, Routes, useParams} from "react-router-dom"
+import {lazy, Suspense, useEffect} from "react"
+import {Navigate, Route, Routes, useLocation, useParams} from "react-router-dom"
 import Layout from "./layout"
 import ExerciseLayout from "./layout/exerciseLayout"
 import Loader from "./components/ui/loader"
 import {signLanguages} from "./pages/catalog/dummyData"
+import {preloadHandSigns} from "./DummyDataHands"
 
 const HomePage = lazy(() => import("./pages/homePage"))
 const LanguageCatalog = lazy(() => import("./pages/catalog"))
@@ -32,6 +33,15 @@ const ExerciseRouter = () => {
 };
 
 function App() {
+    const location = useLocation();
+
+    // Warm the hand-sign image cache ahead of the pages that need it, but
+    // skip the home page so it stays free of the extra network work.
+    useEffect(() => {
+        if (location.pathname === "/" || location.pathname === "/home") return;
+        preloadHandSigns();
+    }, [location.pathname]);
+
     return (
         <Suspense fallback={
             <div className="flex items-center justify-center h-screen">
